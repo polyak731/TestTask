@@ -25,7 +25,7 @@ public class Main {
 			for(String path : reader.getLines()){
 				Parser parser = new Parser(path);
 				parser.onEnd(()->{
-					handler.writeLine(parser.getInputPath()+";"+parser.getCount()+"\n");
+					handler.writeLine(parser.getInputPath()+";"+parser.getCount()+"\r\n");
 					System.out.println(parser);
 					console.incFlag();
 				});
