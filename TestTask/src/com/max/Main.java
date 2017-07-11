@@ -22,8 +22,10 @@ public class Main {
 			reader.readFileLines();
 			Pool pool = new Pool();
 			ConsoleReader console = new ConsoleReader(pool,reader.getLines().size());
+			int number=0;
 			for(String path : reader.getLines()){
 				Parser parser = new Parser(path);
+				parser.setName(String.valueOf(number++));
 				parser.onEnd(()->{
 					handler.writeLine(parser.getInputPath()+";"+parser.getCount()+"\r\n");
 					System.out.println(parser);
