@@ -3,6 +3,13 @@ package com.max;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * 
+ * @author Максим
+ *
+ * The parser class is a separate thread 
+ * of the scanning folder. 
+ */
 public class Parser extends Thread implements Listener{
 
 	private int count = 0;
@@ -22,7 +29,10 @@ public class Parser extends Thread implements Listener{
 		parse(new File(inputPath));
 		if(end!=null) end.run();
 	}
-	
+	/**
+	 * 
+	 * @param path. The path of scanning folder.
+	 */
 	private void parse(File path){
 		if(this.isInterrupted()) return;
 		File[] files = path.listFiles(file->file.isFile());

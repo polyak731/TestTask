@@ -2,7 +2,12 @@ package com.max;
 
 import java.util.LinkedList;
 import java.util.List;
-
+/**
+ * 
+ * @author Максим
+ *
+ * Class Pool class is a Parsers notifier
+ */
 public class Pool implements Observable{
 
 	private List<Listener> listeners = new LinkedList<>();

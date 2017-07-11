@@ -8,6 +8,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * @author Максим
+ *
+ *A class that reads all lines from a file
+ */
 public class FileLinesReader extends FileReader{
 	
 	private List<String> lines = new ArrayList<>();

@@ -4,11 +4,15 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
+/**
+ * 
+ * @author Максим
+ *
+ * The class that manages the file
+ */
 public class FileHandler {
 
 	private File file;
-	
 	
 	public FileHandler(File file){
 		this.file = file;
