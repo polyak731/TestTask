@@ -1,33 +1,43 @@
 package com.max;
 
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import com.max.input.InputUtils;
 
 public class Main {
 
-	public static void main(String[] args) throws IOException, InterruptedException{
-		FileListReader flr = new FileListReader(new File(args[0]));
-		flr.readFileNames();
-		ParserPool pool = new ParserPool();
-		for(String path : flr.getDirs()){
-			pool.add(new Parser(path));
+	public static void main(String[] args){
+		
+		if(args.length<2 || args.length>2){
+			System.out.println("Invalid number of arguments: "+args.length);
+			System.exit(0);
 		}
-		pool.startAll();
-		System.out.println("Press Esc to close app");
-		while(InputUtils.getCh()!=27){}
-		pool.stopAll();
-		try(FileWriter writer = new FileWriter(new File(args[1]))){
-			for(Parser parser : pool.getParsers()){
-				writer.append(parser.getInputPath()+";"+parser.getCount()+"\n");
+		
+		File inputFile = new File(args[0]);
+		File outputFile = new File(args[1]);
+		
+		try(FileLinesReader reader = new FileLinesReader(inputFile)) {
+			FileHandler handler = new FileHandler(outputFile);
+			handler.clearFile();
+			reader.readFileLines();
+			Pool pool = new Pool();
+			ConsoleReader console = new ConsoleReader(pool,reader.getLines().size());
+			for(String path : reader.getLines()){
+				Parser parser = new Parser(path);
+				parser.onEnd(()->{
+					handler.writeLine(parser.getInputPath()+";"+parser.getCount()+"\n");
+					System.out.println(parser);
+					console.incFlag();
+				});
+				pool.addListener(parser);
+				parser.start();
 			}
-			writer.write("");
-		}catch(IOException ex){
+			console.start();
 			
+		}catch(FileNotFoundException ex){
+			System.out.println(ex.getMessage());
+		}catch (IOException ex) {
+			System.out.println(ex.getMessage());
 		}
 	}
-	
-	
 }
