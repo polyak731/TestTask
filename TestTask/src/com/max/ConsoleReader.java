@@ -1,7 +1,14 @@
 package com.max;
 
 import com.max.input.InputUtils;
-
+/**
+ * 
+ * @author Максим
+ *
+ * A class that allow's to work with console input,
+ * the successor of class thread for receiving input
+ * in an additional thread
+ */
 public class ConsoleReader extends Thread{
 
 	private Pool pool;
